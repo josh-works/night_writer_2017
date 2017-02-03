@@ -7,6 +7,6 @@ class NightreadTest < Minitest::Test
 	end
 
 	def test_night_read
-		assert_equal "hello world", @read
+		assert_equal "hello world", @read.read
 	end
 end
