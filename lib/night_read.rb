@@ -1,7 +1,19 @@
 class NightRead
 	attr_reader :read
 	def initialize
-		@read = "hello world"
+		@read = File.read("./test_file.txt")
+		require'pry';binding.pry
+	end
+
+	def close
+		@read.close
+	end
+
+	def file_array
+		file_arr = @read.split("\n")
+		file_arr.map do |line|
+			line.split(/../)
+		end
 	end
 end
 

@@ -2,6 +2,7 @@ class Letters
 	def initialize(array)
 		@array = array
 	end
+
 	def convert
 		case @array
 			when ["0.", "..", ".."]
