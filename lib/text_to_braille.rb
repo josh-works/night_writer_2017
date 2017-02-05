@@ -33,6 +33,29 @@ class TextToBraille
   end
 end
 
-letter = TextToBraille.new
-braille = letter.print_letter("a")
-letter.combine_letters(braille)
+# def encrypt_file(filename, rotation)
+#
+#   # create file handle to the input file
+#   file = File.open(filename, "r")
+#
+#   # read text of input file
+#   message_to_encrypt = file.read
+#   encrypted_message = encrypt(message_to_encrypt, rotation)
+#   output = File.open("#{filename}.#{rotation}.encrypted", "w")
+#   output.write(encrypted_message)
+#   output.close
+#   puts "#{encrypted_message} | written to new file"
+# end
+
+# def decrypt_file(filename, rotation)
+#     file = File.open(filename, "r")
+#     message_to_decrypt = file.read
+#     decrypted_message = decrypt(message_to_decrypt, rotation)
+#     output = File.open("#{filename.gsub("encrypted", "decrypted")}", "w")
+#     output.write(decrypted_message)
+#     output.close
+# end
+#
+# letter = TextToBraille.new
+# braille = letter.print_letter("a")
+# letter.combine_letters(braille)
