@@ -1,6 +1,6 @@
 require 'pry'
 class TextToBraille
-
+  attr_accessor :line0, :line1, :line2
   # 0 => raised dot
   # . => unraised space
   BRAILLEALPHABET = {
@@ -15,21 +15,24 @@ class TextToBraille
     "numbers" => [".0", ".0", "00"], " " => ["..","..",".."]
    }
 
-  def print_letter(letter)
-    BRAILLEALPHABET[letter]
-    # combine_letters(braille)
+  def initialize
+    @line0 = []
+    @line1 = []
+    @line2 = []
   end
 
-  def combine_letters(letter)
-    line0 = []
-    line1 = []
-    line2 = []
-    letter.map.with_index do |braille, index|
-      line0 << braille if index == 0
-      line1 << braille if index == 1
-      line2 << braille if index == 2
+  def print_phrase(phrase)
+    phrase.split('').map do |letter|
+      letter_to_braille(letter)
     end
-    puts "#{line0.join}" +  "\n#{line1.join}" + "\n#{line2.join}"
+    puts "#{line0.join()}" +  "\n#{line1.join()}" + "\n#{line2.join()}"
+  end
+
+  def letter_to_braille(letter)
+    hash = BRAILLEALPHABET[letter]
+    line0 << hash[0]
+    line1 << hash[1]
+    line2 << hash[2]
   end
 end
 
