@@ -38,13 +38,21 @@ class TextToBraille
   def read_from_file(filename)
     file = File.open(filename, "r")
     text = file.read
+    puts "retreieved '#{text}' from #{filename}"
     print_phrase(text)
+  end
+
+  def print_to_file(filename)
+    File.open(filename, "a+") do |file|
+      file << line0.join() + "\n"
+      file << line1.join() + "\n"
+      file << line2.join() + "\n"
+    end
   end
 
 end
 
 # def encrypt_file(filename, rotation)
-#
 #   # create file handle to the input file
 #   file = File.open(filename, "r")
 #
@@ -56,7 +64,7 @@ end
 #   output.close
 #   puts "#{encrypted_message} | written to new file"
 # end
-
+#
 # def decrypt_file(filename, rotation)
 #     file = File.open(filename, "r")
 #     message_to_decrypt = file.read
