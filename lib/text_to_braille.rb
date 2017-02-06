@@ -1,8 +1,6 @@
 require 'pry'
 class TextToBraille
-  attr_accessor :line0, :line1, :line2
-  # 0 => raised dot
-  # . => unraised space
+  attr_accessor :line0, :line1, :line2, :filename
   BRAILLEALPHABET = {
     "a" => ["0.","..",".."], "b" => ["0.","0.",".."], "c" => ["00","..",".."], "d" => ["00",".0",".."],
     "e" => ["0.",".0",".."], "f" => ["00","0.",".."], "g" => ["00","00",".."], "h" => ["0.","00",".."],
@@ -19,6 +17,7 @@ class TextToBraille
     @line0 = []
     @line1 = []
     @line2 = []
+    @filename = nil
   end
 
   def print_phrase(phrase)
@@ -26,6 +25,7 @@ class TextToBraille
       letter_to_braille(letter)
     end
     puts "#{line0.join()}" +  "\n#{line1.join()}" + "\n#{line2.join()}"
+    print_to_file
   end
 
   def letter_to_braille(letter)
@@ -37,43 +37,17 @@ class TextToBraille
 
   def read_from_file(filename)
     file = File.open(filename, "r")
+    @filename = filename
     text = file.read
     puts "retreieved '#{text}' from #{filename}"
     print_phrase(text)
   end
 
-  def print_to_file(filename)
-    File.open(filename, "a+") do |file|
+  def print_to_file
+    File.open("#{filename.slice(0..-5)}.braille.txt", "a+") do |file|
       file << line0.join() + "\n"
       file << line1.join() + "\n"
       file << line2.join() + "\n"
     end
   end
-
 end
-
-# def encrypt_file(filename, rotation)
-#   # create file handle to the input file
-#   file = File.open(filename, "r")
-#
-#   # read text of input file
-#   message_to_encrypt = file.read
-#   encrypted_message = encrypt(message_to_encrypt, rotation)
-#   output = File.open("#{filename}.#{rotation}.encrypted", "w")
-#   output.write(encrypted_message)
-#   output.close
-#   puts "#{encrypted_message} | written to new file"
-# end
-#
-# def decrypt_file(filename, rotation)
-#     file = File.open(filename, "r")
-#     message_to_decrypt = file.read
-#     decrypted_message = decrypt(message_to_decrypt, rotation)
-#     output = File.open("#{filename.gsub("encrypted", "decrypted")}", "w")
-#     output.write(decrypted_message)
-#     output.close
-# end
-#
-# letter = TextToBraille.new
-# braille = letter.print_letter("a")
-# letter.combine_letters(braille)
