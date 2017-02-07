@@ -22,7 +22,7 @@ class TextToBraille
         letter_to_braille("capitals")
         letter_to_braille(letter.downcase)
       elsif letter =~ /[\d]/
-        letter_to_braille("numbers")
+        letter_to_braille("numbers") if phrase[index-1] =~ /[^d]/
         letter_to_braille(letter)
         letter_to_braille("numbers") if phrase[index+1] =~ /[^d]/
       end
