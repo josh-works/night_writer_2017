@@ -9,7 +9,7 @@ class NightReadTest < Minitest::Test
 	def test_turns_into_an_array
 		assert_equal Array, @braille_text.read.class
 	end
-	
+
 	def test_can_split_by_two_characters
 		pair = @braille_text.split_into_pairs
 		
@@ -27,5 +27,9 @@ class NightReadTest < Minitest::Test
 		assert_equal "hello world", @braille_text.zip_every_three
 		assert_equal "hello world", @braille_text.zip_every_three
 		assert_equal "hello world", @braille_text.zip_every_three
+	end
+
+	def test_can_write_to_file
+		assert_equal true, @braille_text.write_to_file
 	end
 end
