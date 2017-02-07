@@ -3,7 +3,7 @@ require './FileReader'
 
 
 class TextToBraille
-  attr_accessor :line0, :line1, :line2, :filename, :reader
+  attr_accessor :line0, :line1, :line2, :filename, :reader, :char_count
   BRAILLEALPHABET = {
     "a" => ["0.","..",".."], "b" => ["0.","0.",".."], "c" => ["00","..",".."], "d" => ["00",".0",".."],
     "e" => ["0.",".0",".."], "f" => ["00","0.",".."], "g" => ["00","00",".."], "h" => ["0.","00",".."],
@@ -22,6 +22,7 @@ class TextToBraille
     @line2 = []
     @filename = nil
     @reader = FileReader.new
+    @char_count = 0
     read_from_file
   end
 
@@ -43,7 +44,9 @@ class TextToBraille
   def read_from_file
     @filename = ARGV[0]
     text = reader.read
+    @char_count = text.length
     puts "... retrieved '#{text}' from #{filename} \n"
+
     print_phrase(text)
   end
 
@@ -58,6 +61,7 @@ class TextToBraille
       file << line1.join() + "\n"
       file << line2.join() + "\n"
       puts "^ encoded to #{output_name}"
+      puts "created #{output_name} containing #{char_count} characters."
     end
   end
 end
