@@ -1,6 +1,9 @@
 require 'pry'
+require './FileReader'
+
+
 class TextToBraille
-  attr_accessor :line0, :line1, :line2, :filename
+  attr_accessor :line0, :line1, :line2, :filename, :reader
   BRAILLEALPHABET = {
     "a" => ["0.","..",".."], "b" => ["0.","0.",".."], "c" => ["00","..",".."], "d" => ["00",".0",".."],
     "e" => ["0.",".0",".."], "f" => ["00","0.",".."], "g" => ["00","00",".."], "h" => ["0.","00",".."],
@@ -18,6 +21,9 @@ class TextToBraille
     @line1 = []
     @line2 = []
     @filename = nil
+    binding.pry
+    @reader = FileReader.new
+    read_from_file
   end
 
   def print_phrase(phrase)
@@ -35,10 +41,9 @@ class TextToBraille
     line2 << hash[2]
   end
 
-  def read_from_file(filename)
-    file = File.open(filename, "r")
-    @filename = filename
-    text = file.read
+  def read_from_file
+    @filename = ARGV[0]
+    text = reader.read
     puts "retreieved '#{text}' from #{filename}"
     print_phrase(text)
   end
@@ -51,3 +56,5 @@ class TextToBraille
     end
   end
 end
+
+TextToBraille.new
