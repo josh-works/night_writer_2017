@@ -1,15 +1,14 @@
 require_relative'letters'
-require'pry'
 
 class NightRead
-	attr_reader :read
+	attr_reader :read, :full_text
 
 	def initialize
-		@read = File.read("./test_file.txt").split("\n")
+		@read = File.read(ARGV[0]).split("\n")
 		@full_text = []
 		@scan_arr = []
 	end
-	
+
 	def split_into_pairs
 		@read.each do |letter|
 				@scan_arr << letter.scan(/../)
@@ -30,13 +29,15 @@ class NightRead
 			translated << translate.convert
 		end
 		@scan_arr.shift(3)
+		full_text << translated.join
 		translated.join
 	end
 
+	def write_to_file
+		(@read.count/3).times do
+			zip_every_three
+		end
+		File.open(ARGV[1], 'w') { |text| text.puts full_text.join("\n")}
+	end
+
 end
-
-
-# NightRead.new.split_by_three
-# NightRead.new.split_into_pairs
-# NightRead.new.zip_array
-NightRead.new.zip_every_three
