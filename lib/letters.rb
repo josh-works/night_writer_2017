@@ -1,4 +1,5 @@
 class Letters
+	attr_accessor :convert
 	def initialize(array)
 		@array = array
 	end
