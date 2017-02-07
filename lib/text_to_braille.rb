@@ -21,7 +21,6 @@ class TextToBraille
     @line1 = []
     @line2 = []
     @filename = nil
-    binding.pry
     @reader = FileReader.new
     read_from_file
   end
@@ -44,15 +43,17 @@ class TextToBraille
   def read_from_file
     @filename = ARGV[0]
     text = reader.read
-    puts "retreieved '#{text}' from #{filename}"
+    puts "... retrieved '#{text}' from #{filename} \n"
     print_phrase(text)
   end
 
   def print_to_file
-    File.open("#{filename.slice(0..-5)}.braille.txt", "a+") do |file|
+    output_name = filename.slice(0..-5) + ".braille.txt"
+    File.open(output_name, "a+") do |file|
       file << line0.join() + "\n"
       file << line1.join() + "\n"
       file << line2.join() + "\n"
+      puts "^ encoded to #{output_name}"
     end
   end
 end
