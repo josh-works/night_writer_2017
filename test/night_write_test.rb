@@ -35,16 +35,18 @@ class NightWriteTest < Minitest::Test
   end
 
   def test_can_join_char_to_braille
+    # resume this test on return
       write = NightWrite.new("./test/example_text/h.txt")
       letter = write.read
       braille = write.convert(letter)
       assert_equal "0.\n00\n..", write.join_string(braille)
-      # assert_equal ["0."], line1
-      # assert_equal ["00"], line2
-      # assert_equal [".."], line3
+      assert_equal ["0."], line1
+      assert_equal ["00"], line2
+      assert_equal [".."], line3
   end
 
   def test_store_two_chars_in_braille
+    skip
     write = NightWrite.new("./test/example_text/ah.txt")
     letter = write.read
     braille = write.convert(letter)
