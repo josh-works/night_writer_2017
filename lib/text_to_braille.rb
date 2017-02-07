@@ -48,7 +48,11 @@ class TextToBraille
   end
 
   def print_to_file
-    output_name = filename.slice(0..-5) + ".braille.txt"
+    if ARGV[1].nil?
+      output_name = filename.slice(0..-5) + ".braille.txt"
+    else
+      output_name = ARGV[1]
+    end
     File.open(output_name, "a+") do |file|
       file << line0.join() + "\n"
       file << line1.join() + "\n"
