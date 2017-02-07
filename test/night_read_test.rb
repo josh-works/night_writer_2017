@@ -1,4 +1,4 @@
-require'./test/test_helper'
+require'./test/test_helper' 
 require'./lib/night_read'
 
 class NightReadTest < Minitest::Test

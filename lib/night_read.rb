@@ -27,24 +27,22 @@ class NightRead
 	end
 
 	def zip_array
-
-
 		zip_arr = []
 		letters = []
 		split_into_pairs.each do |array|
 			line1 = array[0].split(" ")
 			line2 = array[1].split(" ")
 			line3 = array[2].split(" ")
-			binding.pry
+			# binding.pry
 			zip_arr << line1.zip(line2, line3)
 		end
 			zip_arr.each do |letter|
 				translator = Letters.new(letter)
 				letters << translator.convert
-			binding.pry
+			# binding.pry
 		@converted_strings_by_line << letters.join
 			end
-		binding.pry
+		# binding.pry
 		@converted_strings_by_line
 	end
 
