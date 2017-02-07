@@ -1,53 +1,62 @@
 require 'pry'
+require './braille.rb'
+
+
 class TextToBraille
-  attr_accessor :line0, :line1, :line2, :filename
-  BRAILLEALPHABET = {
-    "a" => ["0.","..",".."], "b" => ["0.","0.",".."], "c" => ["00","..",".."], "d" => ["00",".0",".."],
-    "e" => ["0.",".0",".."], "f" => ["00","0.",".."], "g" => ["00","00",".."], "h" => ["0.","00",".."],
-    "i" => [".0","0.",".."], "j" => [".0","00",".."], "k" => ["0.","..","0."], "l" => ["0.","0.","0."],
-    "m" => ["00","..","0."], "n" => ["00",".0","0."], "o" => ["0.",".0","0."], "p" => ["00","0.","0."],
-    "q" => ["00","00","0."], "r" => ["0.","00","0."], "s" => [".0","0.","0."], "t" => [".0","00","0."],
-    "u" => ["0.","..","00"], "v" => ["0.","0.","00"], "w" => [".0","00",".0"], "x" => ["00","..","00"],
-    "y" => ["00",".0","00"], "z" => ["0.",".0","00"], "!" => ["..","00","0."], "'" => ["..","..","0."],
-    "," => ["..","0.",".."], "-" => ["..","..","00"], "." => ["..","00",".0"], "?" => ["..","0.","00"],
-    "capitals" => ["..", "..", ".0"], "numbers" => [".0", ".0", "00"], " " => ["..","..",".."]
-   }
+  attr_accessor :line0, :line1, :line2, :filename, :char_count, :text
 
   def initialize
     @line0 = []
     @line1 = []
     @line2 = []
-    @filename = nil
+    @filename = ARGV[0]
+    @text = File.read(filename).chomp
+    @char_count = text.length
+    puts "... retrieved '#{text}' from #{filename} \n"
+    print_phrase(text)
   end
 
   def print_phrase(phrase)
-    phrase.split('').map do |letter|
-      letter_to_braille(letter)
+
+    phrase.split('').map.with_index do |letter, index|
+      # if letter.upcase == letter && letter =~ /[\w]/
+      if letter.upcase == letter
+        letter_to_braille("capitals")
+        letter_to_braille(letter.downcase)
+      # elsif letter =~ /[\d]/
+      #   letter_to_braille("numbers") if phrase[index-1] =~ /[^d]/
+      #   letter_to_braille(letter)
+      #   letter_to_braille("numbers") if phrase[index+1] =~ /[^d]/
+      else
+        letter_to_braille(letter)
+      end
     end
     puts "#{line0.join()}" +  "\n#{line1.join()}" + "\n#{line2.join()}"
     print_to_file
   end
 
   def letter_to_braille(letter)
-    hash = BRAILLEALPHABET[letter]
+    binding.pry
+    hash = Braille.new.braille_alphabet[letter]
     line0 << hash[0]
     line1 << hash[1]
     line2 << hash[2]
   end
 
-  def read_from_file(filename)
-    file = File.open(filename, "r")
-    @filename = filename
-    text = file.read
-    puts "retreieved '#{text}' from #{filename}"
-    print_phrase(text)
-  end
-
   def print_to_file
-    File.open("#{filename.slice(0..-5)}.braille.txt", "a+") do |file|
+    if ARGV[1].nil?
+      output_name = filename.slice(0..-5) + "_braille.txt"
+    else
+      output_name = ARGV[1]
+    end
+    File.open(output_name, "a+") do |file|
       file << line0.join() + "\n"
       file << line1.join() + "\n"
       file << line2.join() + "\n"
+      puts "^ encoded to #{output_name}"
+      puts "created #{output_name} containing #{char_count} characters."
     end
   end
 end
+
+TextToBraille.new
