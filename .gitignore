@@ -2,3 +2,4 @@
 ./coverage
 /coverage.data
 /coverage/coverage
+coverage/
