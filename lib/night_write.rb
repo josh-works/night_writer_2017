@@ -1,8 +1,8 @@
 require 'pry'
-require './braille.rb'
+require './lib/braille.rb'
 
 
-class TextToBraille
+class NightWrite
   attr_accessor :line0, :line1, :line2, :filename, :char_count, :text
 
   def initialize
@@ -59,4 +59,4 @@ class TextToBraille
   end
 end
 
-TextToBraille.new
+# NightWrite.new
