@@ -17,14 +17,18 @@ class TextToBraille
   end
 
   def print_phrase(phrase)
+
     phrase.split('').map.with_index do |letter, index|
-      if letter.upcase == letter && letter =~ /[\w]/
+      # if letter.upcase == letter && letter =~ /[\w]/
+      if letter.upcase == letter
         letter_to_braille("capitals")
         letter_to_braille(letter.downcase)
-      elsif letter =~ /[\d]/
-        letter_to_braille("numbers") if phrase[index-1] =~ /[^d]/
+      # elsif letter =~ /[\d]/
+      #   letter_to_braille("numbers") if phrase[index-1] =~ /[^d]/
+      #   letter_to_braille(letter)
+      #   letter_to_braille("numbers") if phrase[index+1] =~ /[^d]/
+      else
         letter_to_braille(letter)
-        letter_to_braille("numbers") if phrase[index+1] =~ /[^d]/
       end
     end
     puts "#{line0.join()}" +  "\n#{line1.join()}" + "\n#{line2.join()}"
@@ -32,7 +36,8 @@ class TextToBraille
   end
 
   def letter_to_braille(letter)
-    hash = Braille::BRAILLEALPHABET[letter]
+    binding.pry
+    hash = Braille.new.braille_alphabet[letter]
     line0 << hash[0]
     line1 << hash[1]
     line2 << hash[2]
