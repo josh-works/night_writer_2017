@@ -1,5 +1,1 @@
-# Ignore test-related files
-./coverage
-/coverage.data
-/coverage/coverage
 coverage/
