@@ -3,11 +3,12 @@ require'pry'
 
 class NightRead
 	attr_reader :read
+
 	def initialize
 		@read = File.read("./test_file.txt").split("\n")
-		@converter = Letters.new
 		@full_text = []
 		@scan_arr = []
+		@conterted_strings_by_line = []
 	end
 
 	def split_by_three
@@ -15,28 +16,38 @@ class NightRead
 		num.times do 
 			@full_text << @read.shift(3)
 		end
-		@full_text.each do |braille_line|
-			braille_line.each do |letter|
+		@full_text		
+	end
+
+	def split_into_pairs
+		@read.each do |letter|
 				@scan_arr << letter.scan(/../)
 			end
-		end
-		binding.pry
 		@scan_arr
 	end
 
 	def zip_array
-		line1 = @scan_arr[0]
-		line2 = @scan_arr[1]
-		line3 = @scan_arr[2]
-		zip_arr = line1.zip(line2, line3)
+		zip_arr = []
 		letters = []
-		zip_arr.each do |letter|
-			letters << @converter.convert(letter)
+		split_into_pairs.each do |array|
+			line1 = array[0].split(" ")
+			line2 = array[1].split(" ")
+			line3 = array[2].split(" ")
+			# binding.pry
+			zip_arr << line1.zip(line2, line3)
 		end
-		letters.join
+			zip_arr.each do |letter|
+				translator = Letters.new(letter)
+				letters << translator.convert
+			# binding.pry
+		@converted_strings_by_line << letters.join
+			end
+		# binding.pry
+		@converted_strings_by_line
 	end
 
-	def psuedocode
+end
+
 		#line1.zip(line2, line3) method
 		#each with index
 		#new_array = []
@@ -48,11 +59,10 @@ class NightRead
 		#new_array.each do |letter_arr|
 		#		letter = Letters.new(letter_arr)
 		#		word << letter
-		#end
-	end
-end
+
 NightRead.new.split_by_three
-NightRead.new.split_into_letter_arrays
+NightRead.new.split_into_pairs
+NightRead.new.zip_array
 # split by every 2 characters .split(/../)
 # seperate by each line (and every 3 lines)
 # if index is same << into an array together
