@@ -1,6 +1,4 @@
-require 'pry'
 require './lib/braille.rb'
-
 
 class NightWrite
   attr_accessor :line0, :line1, :line2, :filename, :char_count, :text
@@ -19,14 +17,9 @@ class NightWrite
   def print_phrase(phrase)
 
     phrase.split('').map.with_index do |letter, index|
-      # if letter.upcase == letter && letter =~ /[\w]/
-      if letter.upcase == letter
+      if letter.upcase == letter && /[\w]/ =~ letter
         letter_to_braille("capitals")
         letter_to_braille(letter.downcase)
-      # elsif letter =~ /[\d]/
-      #   letter_to_braille("numbers") if phrase[index-1] =~ /[^d]/
-      #   letter_to_braille(letter)
-      #   letter_to_braille("numbers") if phrase[index+1] =~ /[^d]/
       else
         letter_to_braille(letter)
       end
@@ -36,7 +29,6 @@ class NightWrite
   end
 
   def letter_to_braille(letter)
-    binding.pry
     hash = Braille.new.braille_alphabet[letter]
     line0 << hash[0]
     line1 << hash[1]
@@ -59,4 +51,4 @@ class NightWrite
   end
 end
 
-# NightWrite.new
+NightWrite.new
