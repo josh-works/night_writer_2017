@@ -12,4 +12,18 @@ class Braille
     "capitals" => ["..", "..", ".0"], "numbers" => [".0", ".0", "00"], " " => ["..","..",".."]
    }
 
+   def numbers(number)
+     case translate
+       when number == 0 then BRAILLEALPHABET["j"]
+       when number == 1 then BRAILLEALPHABET["a"]
+       when number == 2 then BRAILLEALPHABET["b"]
+       when number == 3 then BRAILLEALPHABET["c"]
+       when number == 4 then BRAILLEALPHABET["d"]
+       when number == 5 then BRAILLEALPHABET["e"]
+       when number == 6 then BRAILLEALPHABET["f"]
+       when number == 7 then BRAILLEALPHABET["g"]
+       when number == 8 then BRAILLEALPHABET["h"]
+       when number == 9 then BRAILLEALPHABET["i"]
+    end
+   end
 end

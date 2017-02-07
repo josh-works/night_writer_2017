@@ -10,22 +10,28 @@ class TextToBraille
     @line1 = []
     @line2 = []
     @filename = ARGV[0]
-    @text = File.read(filename)
+    @text = File.read(filename).chomp
     @char_count = text.length
     puts "... retrieved '#{text}' from #{filename} \n"
     print_phrase(text)
   end
 
   def print_phrase(phrase)
-    phrase.chomp.split('').map do |letter|
-      letter_to_braille(letter)
+    phrase.split('').map.with_index do |letter, index|
+      if letter.upcase == letter && letter =~ /[\w]/
+        letter_to_braille("capitals")
+        letter_to_braille(letter.downcase)
+      elsif letter =~ /[\d]/
+        letter_to_braille("numbers")
+        letter_to_braille(letter)
+        letter_to_braille("numbers") if phrase[index+1] =~ /[^d]/
+      end
     end
     puts "#{line0.join()}" +  "\n#{line1.join()}" + "\n#{line2.join()}"
     print_to_file
   end
 
   def letter_to_braille(letter)
-    binding.pry
     hash = Braille::BRAILLEALPHABET[letter]
     line0 << hash[0]
     line1 << hash[1]
