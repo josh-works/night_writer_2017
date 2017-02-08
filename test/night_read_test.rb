@@ -21,7 +21,7 @@ class NightReadTest < Minitest::Test
 		assert_equal 2, pair[0][5].length
 	end
 
-	def test_can_zip_can_read_every_three_lines_in_file
+	def test_can_zip_can_read_and_convert_every_three_lines
 		assert_equal "hello world", @braille_text.zip_every_three
 		assert_equal "world", @braille_text.zip_every_three
 		assert_equal "hello world", @braille_text.zip_every_three
@@ -29,7 +29,8 @@ class NightReadTest < Minitest::Test
 		assert_equal "hello world", @braille_text.zip_every_three
 	end
 
-	def test_can_write_to_file
-		assert_equal true, @braille_text.write_to_file
+	def test_can_create_and_write_to_new_file
+		@braille_text.write_to_file
+		assert FileTest.exist?(ARGV[1])
 	end
 end

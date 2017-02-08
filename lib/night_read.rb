@@ -19,14 +19,17 @@ class NightRead
 	def zip_every_three
 		split_into_pairs
 		zipped = []
-		translated = []
 		line1 = @scan_arr[0]
 		line2 = @scan_arr[1]
 		line3 = @scan_arr[2]
-			zipped << line1.zip(line2, line3)
-		zipped[0].each do |letter_arr|
-			translate = Letters.new(letter_arr)
-			translated << translate.convert
+		zipped << line1.zip(line2, line3)
+		translate(zipped)
+	end
+
+	def translate(zipped)
+		translated = zipped[0].map do |letter_arr|
+			converter = Letters.new(letter_arr)
+				converter.convert
 		end
 		@scan_arr.shift(3)
 		full_text << translated.join
