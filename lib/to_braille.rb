@@ -22,7 +22,7 @@ class ToBraille
     alphabet[letter]
   end
 
-  def convert_sentence_to_braille(sentence)
+  def add_braille_to_lines(sentence)
     line0, line1, line2 = [], [], []
     arrays = sentence.split('').map do |letter|
       convert_letter_to_braille(letter)

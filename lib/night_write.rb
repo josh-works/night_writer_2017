@@ -14,6 +14,6 @@ class NightWrite
   end
 
   def convert
-    @braille_converter.convert_sentence_to_braille(read)
+    @braille_converter.add_braille_to_lines(read)
   end
 end
