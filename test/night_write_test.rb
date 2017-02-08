@@ -44,5 +44,5 @@ class NightWriteTest < Minitest::Test
     result = write.convert
     assert_equal ["0.0.", "..00", "...."], result
   end
-  
+
 end
