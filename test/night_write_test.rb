@@ -44,10 +44,5 @@ class NightWriteTest < Minitest::Test
     result = write.convert
     assert_equal ["0.0.", "..00", "...."], result
   end
-
-  # def test_incoming_file_is_an_array
-  #   assert_equal Array, @write.read.class
-  # end
-
-
+  
 end

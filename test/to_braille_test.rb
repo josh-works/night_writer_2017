@@ -21,4 +21,20 @@ class ToBrailleTest < Minitest::Test
     result = @braille.convert_sentence_to_braille("ab")
     assert_equal ["0.0.","..0.","...."], result
   end
+
+  def test_z_!
+    result = @braille.convert_sentence_to_braille("z!")
+    assert_equal ["0...", ".000", "000."], result
+  end
+
+  def test_two_words_to_braille
+    result = @braille.convert_sentence_to_braille("ah ha")
+    assert_equal ["0.0...0.0.", "..00..00..", ".........."], result
+  end
+
+  def test_0_to_braille
+    result = @braille.convert_sentence_to_braille("0")
+    assert_equal ["0.", "..", ".."], result
+  end
+
 end
