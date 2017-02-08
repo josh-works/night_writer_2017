@@ -32,6 +32,17 @@ class ToBraille
       line1 << subarray[1]
       line2 << subarray[2]
     end
-    [line0.join, line1.join, line2.join]
   end
+
+  def combine_lines(arrays_of_strings)
+    line0, line1, line2 = [], [], []
+    all_lines = [line0.join, line1.join, line2.join]
+    arrays_of_strings.each do |array|
+      line0 << array[0]
+      line1 << array[1]
+      line2 << array[2]
+    end
+    all_lines
+  end
+
 end
