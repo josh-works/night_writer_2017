@@ -77,5 +77,4 @@ class ToBrailleTest < Minitest::Test
     result = @braille.format_results(lines)
     assert_equal 6, result
   end
-
 end
