@@ -50,5 +50,3 @@ class NightWrite
     end
   end
 end
-
-NightWrite.new
