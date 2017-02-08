@@ -1,8 +1,8 @@
-require './lib/to_braille'
+require'./lib/to_braille'
 require'pry'
 
 class NightWrite
-  attr_reader :read, :file_name
+  attr_reader :read, :file_name, :braille_converter
 
   def initialize(file_name = "./test/example_text/example.txt")
     @file_name = file_name
@@ -14,6 +14,6 @@ class NightWrite
   end
 
   def convert
-    @braille_converter.add_braille_to_lines(read)
+    braille_converter.add_braille_to_lines(read)
   end
 end

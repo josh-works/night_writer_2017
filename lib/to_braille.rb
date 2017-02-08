@@ -19,11 +19,20 @@ class ToBraille
   end
 
   def convert_letter_to_braille(letter)
-    alphabet[letter]
+    if letter.upcase == letter && letter =~ /[a-zA-Z]/
+      [alphabet["capitals"], alphabet[letter.downcase]]
+    elsif letter =~ /[\d]/
+      [alphabet["numbers"], alphabet[letter]]
+    else
+      alphabet[letter]
+    end
   end
 
   def add_braille_to_lines(sentence)
     line0, line1, line2 = [], [], []
+    # sentence.split(" ")
+    # if that^ includes a capital letter/or world
+    # downcase that, and put coorresponding single or double comma before it
     arrays = sentence.split('').map do |letter|
       convert_letter_to_braille(letter)
     end
@@ -34,15 +43,24 @@ class ToBraille
     end
   end
 
-  def combine_lines(arrays_of_strings)
+  def combine_lines(array_of_arrays)
     line0, line1, line2 = [], [], []
-    all_lines = [line0.join, line1.join, line2.join]
-    arrays_of_strings.each do |array|
+    array_of_arrays.each do |array|
       line0 << array[0]
       line1 << array[1]
       line2 << array[2]
     end
-    all_lines
+    [line0.join, line1.join, line2.join]
+  end
+
+  def format_results(array_of_lines)
+    first_line = array_of_lines[0].join
+    second_line = array_of_lines[1].join
+    third_line = array_of_lines[2].join
+
+
+    array_of_lines[0].join.length
+    array_of_lines[0].split
   end
 
 end

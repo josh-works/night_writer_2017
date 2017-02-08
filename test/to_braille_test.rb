@@ -18,7 +18,7 @@ class ToBrailleTest < Minitest::Test
   end
 
   def test_single_array_converts_to_braille
-    result = @braille.combine_lines(["0.", "..", ".."])
+    result = @braille.combine_lines([["0.", "..", ".."]])
     assert_equal ["0.","..",".."], result
   end
 
@@ -29,33 +29,53 @@ class ToBrailleTest < Minitest::Test
   end
 
   def test_single_letter_sentence
-    skip
     result = @braille.add_braille_to_lines("a")
-    assert_equal ["0.","..",".."], result
+    assert_equal [["0.","..",".."]], result
   end
 
   def test_two_letter_sentence
-    skip
     result = @braille.add_braille_to_lines("ab")
-    assert_equal ["0.0.","..0.","...."], result
+    assert_equal [["0.","..",".."], ["0.","0.",".."]], result
   end
 
   def test_z_!
-    skip
     result = @braille.add_braille_to_lines("z!")
-    assert_equal ["0...", ".000", "000."], result
+    assert_equal [["0.",".0","00"], ["..","00","0."]], result
   end
 
   def test_two_words_to_braille
-    skip
     result = @braille.add_braille_to_lines("ah ha")
-    assert_equal ["0.0...0.0.", "..00..00..", ".........."], result
+    assert_equal [["0.","..",".."],["0.","00",".."],["..","..",".."], ["0.","00",".."], ["0.","..",".."]], result
   end
 
-  def test_0_to_braille
+  def test_single_letter_capitals
+    result_1 = @braille.convert_letter_to_braille("A")
+    result_2 = @braille.convert_letter_to_braille("B")
+    result_3 = @braille.convert_letter_to_braille("C")
+    assert_equal [["..", "..", ".0"], ["0.","..",".."]], result_1
+    assert_equal [["..", "..", ".0"], ["0.","0.",".."]], result_2
+    assert_equal [["..", "..", ".0"], ["00","..",".."]], result_3
+  end
+
+  def test_zero_to_braille
+    result_1 = @braille.convert_letter_to_braille("0")
+    result_2 = @braille.convert_letter_to_braille("9")
+    assert_equal [[".0", ".0", "00"], [".0","00",".."]], result_1
+    assert_equal [[".0", ".0", "00"], [".0","0.",".."]], result_2
+  end
+
+  def test_short_line_on_one_braille_line
+    braille_chars = [["0.","..",".."],["0.","00",".."],["..","..",".."], ["0.","00",".."], ["0.","..",".."]]
+    lines = @braille.combine_lines(braille_chars)
+    result = lines.count
+    assert_equal 3, result
+  end
+
+  def test_82_char_braille_splits_to_extra_lines
     skip
-    result = @braille.add_braille_to_lines("0")
-    assert_equal [".00..0", ".0...0", "00..00"], result
+    lines = [["0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0."],[".................................................................................."],[".................................................................................."]]
+    result = @braille.format_results(lines)
+    assert_equal 6, result
   end
 
 end
