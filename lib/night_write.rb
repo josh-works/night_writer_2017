@@ -2,29 +2,18 @@ require './lib/to_braille'
 require'pry'
 
 class NightWrite
-  attr_reader :read
+  attr_reader :read, :file_name
 
-  def initialize(file = "./test/example_text/example.txt")
-    @read = File.read(file).strip
+  def initialize(file_name = "./test/example_text/example.txt")
+    @file_name = file_name
+    @braille_converter = ToBraille.new
   end
 
-  def convert(letter)
-    results = letter.split('').map do |lttr|
-      ToBraille.new.to_braille(lttr)
-    end
-    results
-
-    # if letter.length == 1
-    #   ToBraille.new.to_braille(letter)
-    # elsif letter.length > 1
-    #   letter.split("").each do |letr|
-    #     ToBraille.new.to_braille(letr)
-    #   end
-    # end
+  def read
+    @read ||= File.read(file_name).strip
   end
 
-  def join_string(array)
-    array.join("\n")
+  def convert
+    @braille_converter.convert_sentence_to_braille(read)
   end
-
 end

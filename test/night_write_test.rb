@@ -5,8 +5,8 @@ require './lib/night_write'
 class NightWriteTest < Minitest::Test
 
   def test_a_returns_a_array
-    write = NightWrite.new
-    assert_equal ["0.", "..", ".."], write.convert("a")
+    write = NightWrite.new("./test/example_text/h.txt")
+    assert_equal ["0.", "00", ".."], write.convert
   end
 
   def test_incoming_file_has_no_new_line_chars
@@ -30,28 +30,19 @@ class NightWriteTest < Minitest::Test
 
   def test_short_file_returns_braille
     write = NightWrite.new("./test/example_text/h.txt")
-    letter = write.read
-    assert_equal ["0.","00",".."], write.convert(letter)
+    assert_equal ["0.","00",".."], write.convert
   end
 
   def test_can_join_char_to_braille
-    # resume this test on return
-      write = NightWrite.new("./test/example_text/h.txt")
-      letter = write.read
-      braille = write.convert(letter)
-      assert_equal "0.\n00\n..", write.join_string(braille)
-      assert_equal ["0."], line1
-      assert_equal ["00"], line2
-      assert_equal [".."], line3
+    write = NightWrite.new("./test/example_text/h.txt")
+    braille = write.convert
+    assert_equal ["0.", "00", ".."], braille
   end
 
   def test_store_two_chars_in_braille
-    skip
     write = NightWrite.new("./test/example_text/ah.txt")
-    letter = write.read
-    braille = write.convert(letter)
-    binding.pry
-    assert_equal "0.0.\n..00\n....", write.join_string(braille)
+    result = write.convert
+    assert_equal ["0.0.", "..00", "...."], result
   end
 
   # def test_incoming_file_is_an_array

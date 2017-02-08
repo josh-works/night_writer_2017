@@ -1,3 +1,4 @@
+require 'pry'
 class ToBraille
 
   def alphabet
@@ -14,8 +15,20 @@ class ToBraille
     }
   end
 
-  def to_braille(letter)
+  def convert_letter_to_braille(letter)
     alphabet[letter]
   end
 
+  def convert_sentence_to_braille(sentence)
+    line0, line1, line2 = [], [], []
+    arrays = sentence.split('').map do |letter|
+      convert_letter_to_braille(letter)
+    end
+    arrays.each do |subarray|
+      line0 << subarray[0]
+      line1 << subarray[1]
+      line2 << subarray[2]
+    end
+    [line0.join, line1.join, line2.join]
+  end
 end
