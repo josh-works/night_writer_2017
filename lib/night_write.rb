@@ -28,5 +28,6 @@ class NightWrite
     File.open("#{output_name}", "w") do |file|
        file.write(format_output)
     end
+    p "Created #{output_name} containing #{read.length} characters."
   end
 end
