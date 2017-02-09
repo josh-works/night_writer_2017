@@ -1,5 +1,4 @@
 require'./lib/to_braille'
-require'pry'
 
 class NightWrite
   attr_reader :read, :file_name, :braille_converter

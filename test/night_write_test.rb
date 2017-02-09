@@ -58,4 +58,9 @@ class NightWriteTest < Minitest::Test
     assert_equal "0.\n00\n..", result
   end
 
+  def test_can_format_two_chars_to_braille_for_file
+    night_write = NightWrite.new("./test/example_text/ah.txt")
+    result = night_write.format_output
+    assert_equal "0.0.\n..00\n....", result
+  end
 end
