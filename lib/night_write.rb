@@ -31,3 +31,6 @@ class NightWrite
     p "Created #{output_name} containing #{read.length} characters."
   end
 end
+
+night_write = NightWrite.new
+night_write.write
