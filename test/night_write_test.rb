@@ -6,7 +6,7 @@ class NightWriteTest < Minitest::Test
 
   def test_a_returns_a_array
     write = NightWrite.new("./test/example_text/h.txt")
-    assert_equal ["0.", "00", ".."], write.convert
+    assert_equal [["0.", "00", ".."]], write.convert
   end
 
   def test_incoming_file_has_no_new_line_chars
@@ -30,19 +30,19 @@ class NightWriteTest < Minitest::Test
 
   def test_short_file_returns_braille
     write = NightWrite.new("./test/example_text/h.txt")
-    assert_equal ["0.","00",".."], write.convert
+    assert_equal [["0.","00",".."]], write.convert
   end
 
   def test_can_join_char_to_braille
     write = NightWrite.new("./test/example_text/h.txt")
     braille = write.convert
-    assert_equal ["0.", "00", ".."], braille
+    assert_equal [["0.", "00", ".."]], braille
   end
 
   def test_store_two_chars_in_braille
     write = NightWrite.new("./test/example_text/ah.txt")
     result = write.convert
-    assert_equal ["0.0.", "..00", "...."], result
+    assert_equal [["0.","..",".."], ["0.","00",".."]], result
   end
 
   def test_short_line_on_one_braille_line

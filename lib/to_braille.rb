@@ -30,9 +30,6 @@ class ToBraille
 
   def add_braille_to_lines(sentence)
     line0, line1, line2 = [], [], []
-    # sentence.split(" ")
-    # if that^ includes a capital letter/or world
-    # downcase that, and put coorresponding single or double comma before it
     arrays = sentence.split('').map do |letter|
       convert_letter_to_braille(letter)
     end
