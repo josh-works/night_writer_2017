@@ -32,5 +32,4 @@ class NightWrite
   end
 end
 
-night_write = NightWrite.new
-night_write.write
+NightWrite.new.write
