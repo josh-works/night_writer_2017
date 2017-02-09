@@ -17,14 +17,9 @@ class NightWrite
     braille_converter.add_braille_to_lines(read)
   end
 
-  # def format_results(array_of_lines)
-  #   first_line = array_of_lines[0].join
-  #   second_line = array_of_lines[1].join
-  #   third_line = array_of_lines[2].join
-  #
-  #
-  #   array_of_lines[0].join.length
-  #   array_of_lines[0].split
-  # end
-
+  def write(file_name)
+    File.open("#{file_name}", "w") do |file|
+       file.write("this is the shit")
+    end
+  end
 end
