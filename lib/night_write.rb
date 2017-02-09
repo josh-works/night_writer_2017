@@ -4,9 +4,8 @@ require 'pry'
 class NightWrite
   attr_reader :read, :file_name, :braille_converter
 
-  def initialize(file_name = "./test/example_text/h.txt")
+  def initialize(file_name = "./test/example_text/ah.txt")
     @file_name = ARGV[0] || file_name
-    # @file_name = ARGV[0] || file_name
     @braille_converter = ToBraille.new
   end
 
@@ -15,6 +14,7 @@ class NightWrite
   end
 
   def convert
+    p "retrieved '#{read}' from #{file_name}"
     braille_converter.add_braille_to_lines(read)
   end
 
@@ -23,9 +23,8 @@ class NightWrite
     arrays.join("\n")
   end
 
-  def write(file_name)
-    output_name = ARGV[1]
-    # output_name = ARGV[1] || "#{file_name.slice(0..-5)}_braille.txt"
+  def write
+    output_name = ARGV[1] || "#{file_name.slice(0..-5)}_braille.txt"
     File.open("#{output_name}", "w") do |file|
        file.write(format_output)
     end

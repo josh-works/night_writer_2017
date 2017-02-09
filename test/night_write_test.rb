@@ -47,9 +47,8 @@ class NightWriteTest < Minitest::Test
 
   def test_can_write_lines_to_file
     write = NightWrite.new("./test/example_text/h.txt")
-    file_name = "002.txt"
-    write.write(file_name)
-    assert File.exist?("./#{file_name}")
+    write.write
+    assert File.exist?("./test/example_text/h_braille.txt")
   end
 
   def test_can_format_single_char_to_braille_for_file
