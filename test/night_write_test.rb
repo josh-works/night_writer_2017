@@ -10,7 +10,7 @@ class NightWriteTest < Minitest::Test
   end
 
   def test_incoming_file_has_no_new_line_chars
-    write = NightWrite.new
+    write = NightWrite.new("./test/example_text/example.txt")
     refute write.read.include?("\n")
   end
 
