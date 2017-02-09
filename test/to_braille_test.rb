@@ -64,17 +64,4 @@ class ToBrailleTest < Minitest::Test
     assert_equal [[".0", ".0", "00"], [".0","0.",".."]], result_2
   end
 
-  def test_short_line_on_one_braille_line
-    braille_chars = [["0.","..",".."],["0.","00",".."],["..","..",".."], ["0.","00",".."], ["0.","..",".."]]
-    lines = @braille.combine_lines(braille_chars)
-    result = lines.count
-    assert_equal 3, result
-  end
-
-  def test_82_char_braille_splits_to_extra_lines
-    skip
-    lines = [["0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0."],[".................................................................................."],[".................................................................................."]]
-    result = @braille.format_results(lines)
-    assert_equal 6, result
-  end
 end

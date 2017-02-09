@@ -53,14 +53,4 @@ class ToBraille
     [line0.join, line1.join, line2.join]
   end
 
-  def format_results(array_of_lines)
-    first_line = array_of_lines[0].join
-    second_line = array_of_lines[1].join
-    third_line = array_of_lines[2].join
-
-
-    array_of_lines[0].join.length
-    array_of_lines[0].split
-  end
-
 end
